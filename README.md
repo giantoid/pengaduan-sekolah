@@ -1,85 +1,110 @@
-E-Aspirasi: Aplikasi Pengaduan Sarana Sekolah
+# E-Aspirasi: Aplikasi Pengaduan Sarana Sekolah
 
-E-Aspirasi adalah platform digital yang dirancang untuk memfasilitasi siswa dalam melaporkan kerusakan sarana dan prasarana sekolah. Proyek ini dibangun menggunakan Framework Laravel sebagai solusi pemenuhan tugas UKK Paket 3 Rekayasa Perangkat Lunak.
+**E-Aspirasi** adalah platform digital yang dirancang untuk memfasilitasi siswa dalam melaporkan kerusakan sarana dan prasarana sekolah. Proyek ini dibangun menggunakan [Framework Laravel](https://laravel.com) sebagai solusi pemenuhan tugas UKK Paket 3 Rekayasa Perangkat Lunak.
 
-🛠️ Persyaratan Sistem
+---
+
+## 🛠️ Persyaratan Sistem
 
 Sebelum memulai, pastikan perangkat Anda telah terpasang:
 
-PHP (Versi 8.2 atau lebih baru)
+- **PHP** (Versi 8.2 atau lebih baru)
+- **Composer** (Dependency Manager untuk PHP)
+- **Node.js & NPM** (Untuk kompilasi asset CSS/JS)
+- **MySQL** (Melalui XAMPP/Laragon/Native)
 
-Composer (Dependency Manager untuk PHP)
+---
 
-Node.js & NPM (Untuk kompilasi asset CSS/JS)
+## ⚙️ Panduan Instalasi
 
-MySQL (Melalui XAMPP/Laragon)
+Ikuti langkah-langkah berikut untuk menjalankan proyek di perangkat lokal:
 
-🚀 Langkah Pengembangan
+1.  **Clone Repositori**
 
-Fase 1: Inisialisasi & Autentikasi
+    ```bash
+    git clone https://github.com
+    cd nama-repo
+    ```
 
-Instalasi Laravel: Membuat project baru.
+2.  **Instal Dependensi PHP**
 
-Laravel Breeze: Menginstal starter kit untuk fitur Login dan Register menggunakan stack Blade.
+    ```bash
+    composer install
+    ```
 
-Konfigurasi Database: Menghubungkan project ke database db_e_aspirasi melalui file .env.
+3.  **Instal Dependensi Frontend**
 
-Modifikasi Tabel User: Menyesuaikan tabel bawaan Laravel agar mendukung login menggunakan username dan penambahan kolom role (admin/student) serta class.
+    ```bash
+    npm install && npm run build
+    ```
 
-Middleware Role: Membuat sistem pengaman (CheckRole) untuk membatasi akses halaman berdasarkan hak akses pengguna.
+4.  **Konfigurasi Environment**
+    Salin file `.env.example` menjadi `.env`, lalu sesuaikan `DB_DATABASE=db_e_aspirasi`.
 
-Fase 2: Struktur Data & Relasi
+    ```bash
+    cp .env.example .env
+    php artisan key:generate
+    ```
 
-Migrasi Tabel Master: Pembuatan tabel categories untuk mengelompokkan sarana (misal: Elektronik, Bangunan).
+5.  **Migrasi & Seed Database**
+    Jalankan perintah ini untuk membuat tabel dan mengisi akun admin default:
 
-Migrasi Tabel Transaksi: Pembuatan tabel complaints untuk data pengaduan dan feedbacks untuk tanggapan dari pihak admin.
+    ```bash
+    php artisan migrate --seed
+    ```
 
-Relasi Eloquent: Menghubungkan Model User, Complaint, Category, dan Feedback agar pengambilan data menjadi efisien menggunakan relasi One-to-Many dan One-to-One.
+6.  **Jalankan Server**
+    ```bash
+    php artisan serve
+    ```
 
-Data Seeding: Mengisi database awal dengan akun admin default dan beberapa kategori sarana dasar.
+---
 
-Fase 3: Pengembangan Fitur Siswa (Student)
+## 🚀 Alur Pengembangan Proyek
 
-AspirasiController: Membuat logika untuk menampilkan data pribadi siswa dan menyimpan laporan baru ke database.
+### Fase 1: Inisialisasi & Autentikasi
 
-Form Input: Membuat antarmuka formulir yang menyertakan pilihan kategori, lokasi, dan deskripsi masalah.
+- **Laravel Breeze**: Menggunakan starter kit untuk fitur Login dan Register.
+- **Modifikasi Tabel User**: Menambahkan kolom `role` (admin/student), `username`, dan `class`.
+- **Middleware Role**: Membuat pengamanan akses halaman menggunakan `CheckRole`.
 
-Histori Laporan: Membuat tabel riwayat agar siswa dapat memantau status laporan mereka secara real-time.
+### Fase 2: Struktur Data & Relasi
 
-Fase 4: Pengembangan Fitur Admin
+- **Tabel Master**: `categories` untuk pengelompokan sarana (Elektronik, Bangunan, dll).
+- **Tabel Transaksi**: `complaints` (aspirasi) dan `feedbacks` (tanggapan admin).
+- **Eloquent Relationship**: Mengatur relasi _One-to-Many_ antar Model.
 
-Dashboard Khusus Admin: Membuat antarmuka yang menampilkan seluruh aspirasi dari semua siswa.
+### Fase 3: Fitur Siswa (Student)
 
-Update Status & Tanggapan: Implementasi fitur bagi admin untuk mengubah status laporan (Pending, Processing, Done) sekaligus memberikan pesan umpan balik (feedback) tertulis.
+- **Input Aspirasi**: Formulir pelaporan kerusakan berdasarkan kategori dan lokasi.
+- **Histori Laporan**: Tracking status laporan secara _real-time_.
 
-Logic UpdateOrCreate: Menggunakan metode cerdas untuk menyimpan tanggapan admin agar tidak terjadi duplikasi data.
+### Fase 4: Fitur Admin
 
-Fase 5: Penyempurnaan (Finishing)
+- **Dashboard Monitoring**: Panel untuk mengelola seluruh aspirasi siswa.
+- **Tanggapan & Status**: Fitur untuk mengubah status (Pending, Processing, Done) dan memberi feedback.
 
-Fitur Filter: Menambahkan kemampuan bagi admin untuk menyaring data berdasarkan nama pelapor, kategori tertentu, atau status laporan.
+### Fase 5: Penyempurnaan (Finishing)
 
-Pencarian Global: Implementasi kolom pencarian untuk mempercepat penemuan data aspirasi.
+- **Filter & Search**: Memudahkan pencarian data aspirasi.
+- **UI Polishing**: Menggunakan [Tailwind CSS](https://tailwindcss.com) agar tampilan responsif.
 
-UI Polishing: Merapikan tampilan menggunakan Tailwind CSS agar aplikasi terlihat profesional dan responsif di berbagai perangkat.
+---
 
-🔑 Informasi Akun Default (Seeder)
+## 🔑 Informasi Akun Default (Seeder)
 
-Untuk masuk ke sistem admin tanpa registrasi manual:
+Gunakan akun berikut untuk login pertama kali:
 
-Username: admin
+| User Role         | Username | Password   |
+| :---------------- | :------- | :--------- |
+| **Administrator** | `admin`  | `password` |
 
-Password: password
+---
 
-Role: Admin
+## 📂 Hasil Produksi
 
-📂 Hasil Produksi
+- **Source Code**: Full project Laravel.
+- **Database**: Schema `.sql` (tersedia di folder database/migrations).
+- **Dokumentasi**: File README ini dan diagram ERD.
 
-Dokumen yang dihasilkan dari project ini meliputi:
-
-Source Code: Kode program lengkap berbasis Laravel.
-
-Database Schema: File .sql yang berisi struktur tabel dan data awal.
-
-Dokumentasi Teknis: Berupa file README dan diagram ERD.
-
-"Membangun Transparansi, Memperbaiki Fasilitas Sekolah"
+> **"Membangun Transparansi, Memperbaiki Fasilitas Sekolah"**
