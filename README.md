@@ -22,7 +22,7 @@ Ikuti langkah-langkah berikut untuk menjalankan proyek di perangkat lokal:
 1.  **Clone Repositori**
 
     ```bash
-    git clone https://github.com
+    git clone https://github.com/giantoid/pengaduan-sekolah.git
     cd nama-repo
     ```
 
