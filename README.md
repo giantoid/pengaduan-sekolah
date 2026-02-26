@@ -23,7 +23,7 @@ Ikuti langkah-langkah berikut untuk menjalankan proyek di perangkat lokal:
 
     ```bash
     git clone https://github.com/giantoid/pengaduan-sekolah.git
-    cd nama-repo
+    cd pengaduan-sekolah
     ```
 
 2.  **Instal Dependensi PHP**
